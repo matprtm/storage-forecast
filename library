@@ -1,0 +1,65 @@
+"""Import library"""
+import numpy as np
+import pandas as pd
+from pandas import Series,DataFrame
+from datetime import datetime
+from sklearn.linear_model import LinearRegression
+import matplotlib.pyplot as plt
+import seaborn as sns
+import pandas as pd
+import datetime
+import os
+import itertools
+
+%matplotlib inline
+
+!pip install prophet
+from prophet import Prophet
+!pip install cmdstanpy==1.1.0
+
+# Save dataframe to GSheet
+!pip install gspread
+from google.colab import auth
+from google.auth import default
+import gspread
+
+# from fbprophet import Prophet
+# Statsmodels widely known for forecasting than Prophet
+# import statsmodels.api as sm
+from scipy import stats
+from plotly import tools
+import plotly.figure_factory as ff
+import plotly.tools as tls
+import plotly.graph_objs as go
+from plotly.offline import download_plotlyjs, init_notebook_mode, plot, iplot
+init_notebook_mode(connected=True)
+import warnings
+warnings.filterwarnings("ignore")
+
+# plt.style.available
+plt.style.use('seaborn-v0_8-whitegrid')
+
+plt.rcParams['figure.figsize'] = (20,7)
+plt.style.use('ggplot')
+
+from google.colab import files
+
+from google.colab import auth
+auth.authenticate_user()
+from oauth2client.client import GoogleCredentials
+
+from google.colab import auth
+auth.authenticate_user()
+
+import gspread
+from google.auth import default
+creds, _ = default()
+
+gc = gspread.authorize(creds)
+
+def split_data(data, test_split):
+    l = len(data)
+    t_idx = round(l*(1-test_split))
+    train, test = data[ : t_idx], data[t_idx : ]
+    print(f'train: {len(train)}, test: {len(test)}')
+    return train, test
